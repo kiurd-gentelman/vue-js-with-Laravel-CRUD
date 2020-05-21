@@ -1,125 +1,62 @@
 <template>
-    <div class="content pure-u-1 pure-u-md-21-24">
-        <div class="header-small">
+    <div id="main" class="pure-g">
+        <div class="sidebar pure-u-1 pure-u-md-1-2">
+            <div class="header-large">
+                <h1>Pure Admin</h1>
+                <h2>Simple Admin Panel For Everyone</h2>
 
-            <div class="items">
-                <h1 class="subhead">Dashboard</h1>
-            </div>
-
-            <div class="pure-g">
-
-                <div class="pure-u-1 pure-u-md-1-3">
-                    <div class="column-block">
-                        <div class="column-block-header column-success">
-                            <h2>Accounts</h2>
-                            <span class="column-block-info">1000 <span>this month</span></span>
-                        </div>
-                        <ul class="column-block-list">
-                            <li>Today <span class="buble-success button-small pull-right">100</span></li>
-                            <li>Yesterday <span class="buble-secondary button-small pull-right">1000</span></li>
-                            <li>Total <span class="buble-warning button-small pull-right">10000</span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="pure-u-1 pure-u-md-1-3">
-                    <div class="column-block">
-                        <div class="column-block-header column-warning">
-                            <h2>Posts</h2>
-                            <span class="column-block-info">1000 <span>this month</span></span>
-                        </div>
-                        <ul class="column-block-list">
-                            <li>Today <span class="buble-success button-small pull-right">100</span></li>
-                            <li>Yesterday <span class="buble-secondary button-small pull-right">1000</span></li>
-                            <li>Total <span class="buble-warning button-small pull-right">10000</span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="pure-u-1 pure-u-md-1-3">
-                    <div class="column-block">
-                        <div class="column-block-header">
-                            <h2>Options</h2>
-                            <span class="column-block-info">1000 <span>this month</span></span>
-                        </div>
-                        <ul class="column-block-list">
-                            <li>Today <span class="buble-success button-small pull-right">100</span></li>
-                            <li>Yesterday <span class="buble-secondary button-small pull-right">1000</span></li>
-                            <li>Total <span class="buble-warning button-small pull-right">10000</span></li>
-                        </ul>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="pure-g">
-                <div class="pure-u-1 pure-u-md-1-3">
-                    <div class="column-block">
-                        <table class="pure-table pure-table-horizontal">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Title</th>
-                                <th>Status</th>
-                            </tr>
-                            </thead>
-
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Post Title 1</td>
-                                <td>Active</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Post Title 2</td>
-                                <td>Draft</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="pure-u-1 pure-u-md-2-3">
-                    <div class="column-block">
-                        <table class="pure-table pure-table-horizontal">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Full Name</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>Status</th>
-                            </tr>
-                            </thead>
-
-                            <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>Full Name 1</td>
-                                <td>nickname1@domain.local</td>
-                                <td>User</td>
-                                <td>Active</td>
-                            </tr>
-                            <tr>
-                                <td>2</td>
-                                <td>Full Name 2</td>
-                                <td>nickname2@domain.local</td>
-                                <td>Moderator</td>
-                                <td>Awaiting</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <div class="footer">
-                <div class="pure-menu pure-menu-horizontal">
+                <nav class="nav">
                     <ul>
-                        <li class="pure-menu-item"><a href="http://purecss.io/" class="pure-menu-link">PURE CSS</a></li>
-                        <li class="pure-menu-item"><a href="http://fikiruretgeci.com" class="pure-menu-link">FIKIR URETGECI</a></li>
-                        <li class="pure-menu-item"><a href="http://pure-themes.com" class="pure-menu-link">PURE THEMES</a></li>
+                        <li>
+                            <a class="pure-button active" href="login.html">Login</a>
+                            <a class="pure-button" href="register.html">Register</a>
+                        </li>
                     </ul>
+                </nav>
+            </div>
+        </div>
+
+        <div class="content pure-u-1 pure-u-md-1-2">
+            <div class="header-medium">
+
+                <div class="items">
+                    <h1 class="subhead">Login</h1>
+
+                    <!--<aside class="pure-message message-success">
+                        <p><strong>SUCCESS</strong>: Success message.</p>
+                    </aside>
+                    <aside class="pure-message message-error">
+                        <p><strong>ERROR</strong>: Error message.</p>
+                    </aside>
+                    <aside class="pure-message message-warning">
+                        <p><strong>WARNING</strong>: Warning message.</p>
+                    </aside>-->
+                    <form  class="pure-form pure-form-stacked">
+                        <fieldset>
+
+                            <label for="email">Email</label>
+                            <input id="email" type="email" placeholder="Email" class="pure-input-1" v-model="credential.email">
+
+                            <label for="password">Password</label>
+                            <input id="password" type="password" placeholder="Password" class="pure-input-1" v-model="credential.password">
+
+                            <label for="remember" class="pure-checkbox">
+                                <input id="remember" type="checkbox" value="1"> Remember me
+                            </label>
+
+                            <a  href="javaScript:void(0)" class="pure-button button-success" @click="login()">Sign in</a>
+                        </fieldset>
+                    </form>
+                </div>
+
+                <div class="footer">
+                    <div class="pure-menu pure-menu-horizontal">
+                        <ul>
+                            <li class="pure-menu-item"><a href="http://purecss.io/" class="pure-menu-link">PURE CSS</a></li>
+                            <li class="pure-menu-item"><a href="http://fikiruretgeci.com" class="pure-menu-link">FIKIR URETGECI</a></li>
+                            <li class="pure-menu-item"><a href="http://pure-themes.com" class="pure-menu-link">PURE THEMES</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
@@ -127,12 +64,46 @@
 </template>
 
 <script>
+    import axios from 'axios';
     export default {
-        name: 'Dashboard',
-
         props: {
             msg: String
         },
+        data(){
+            return{
+                credential :{
+                    email : '',
+                    password:'',
+                }
+            }
+        },
+        methods:{
+            login(){
+                console.log('ami asi eikhane');
+                let obj = this;
+                this.$eventHandelar.$emit('delayStatus',true);
+                axios.post('http://127.0.0.1:8000/api/v1/login-register/',obj.credential )
+                    .then(function (response) {
+                        obj.$eventHandelar.$emit('delayStatus',false);
+                        if (response.data.error == true){
+                            obj.$iziToast.error({
+                                title: 'Error',
+                                message: 'username or password may be wrong',
+                            });
+                        }else{
+                            console.log(response);
+                            localStorage.setItem('token',response.data.token);
+                            obj.$eventHandelar.$emit('delayStatus',false);
+                            obj.$router.push({path:'/dashboard'})
+
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+
+            }
+        }
 
     }
 </script>

@@ -1,21 +1,23 @@
 <template>
-    <div id="mySidebar" class="sidebar">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-        <div href="#" class="profile"  >
-            <img src="img_avatar.png" class="profile_image" alt="Avatar" style="">
-            <div style="text-align:center" class="profile_name"><h4>ImtiAz</h4></div>
-        </div>
-        <div class="label">
-            <a href="#">Dashboard</a>
-            <a href="#">Products</a>
-            <a href="#">Category</a>
+    <div class="openbtn" >
+        <div class="topnav">
+            <a onclick="openNav()">☰</a>
+            <a clnss="active" href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+            <div class="search-container">
+                <form action="/action_page.php">
+                    <input type="text" placeholder="Search.." name="search">
+                    <button type="submit"><i class="fa fa-search"></i></button>
+                </form>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        name: 'Header',
+        name: 'TopNavBar',
 
         props: {
             msg: String

@@ -2,8 +2,8 @@
         <div class="content pure-u-1 pure-u-md-21-24">
             <div class="header-small" v-if="!loading">
                 <div class="items" >
-                    <h1 class="subhead">Post List <router-link :to="{path:'/product-create'}"><a class="pure-button button-small button-secondary" href="post-form.html">Add New</a></router-link></h1>
-                    <aside class="pure-message message-success">
+                    <h1 class="subhead">Post List <router-link :to="{path:'/dashboard/product-create'}"><a class="pure-button button-small button-secondary" href="post-form.html">Add New</a></router-link></h1>
+                   <!-- <aside class="pure-message message-success">
                         <p><strong>SUCCESS</strong>: Success message.</p>
                     </aside>
                     <aside class="pure-message message-error">
@@ -11,27 +11,33 @@
                     </aside>
                     <aside class="pure-message message-warning">
                         <p><strong>WARNING</strong>: Warning message.</p>
-                    </aside>
+                    </aside>-->
                     <table class="pure-table pure-table-bordered">
                         <thead>
                         <tr>
                             <th>#</th>
                             <th>Name</th>
                             <th>Image</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
                             <th>Description</th>
                             <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
                             <tr v-for="(item , index) in items" :key="index">
-                                <td>{{index}}</td>
+                                <td>{{index+1}}</td>
                                 <td>{{item.name}}</td>
-                                <td>{{item.name}}</td>
+                                <td><img :src = "'http://127.0.0.1:8000/product/images/'+item.image" class="rounded mx-auto d-block img-thumbnail" style="height: 70px; width: 70px" ></td>
+                                <td>{{item.category}}</td>
+                                <td>{{item.quantity}}</td>
+                                <td>{{item.price}}</td>
                                 <td>{{item.description}}</td>
                                 <td>
                                     <a class=" btn btn-success btn-sm" href="javaScript:void(0)" v-on:click="viewDetails(item.id)">View</a>
                                     <a class=" btn btn-warning btn-sm" href="post-form.html">Edit</a>
-                                    <a class=" btn btn-danger btn-sm" href="#" onclick="return confirm('Are you sure?');">Delete</a>
+                                    <a class=" btn btn-danger btn-sm" href="#" @click.prevent="productDelete(item.id)">Delete</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -55,11 +61,9 @@
                 </div>
             </div>
             <div class="header-small" v-else>
-                <img src="assets/loding/loader.gif" style="margin-left: 35% ; margin-top: 10%">
+                <img src="/assets/loading/loader.gif" style="margin-left: 35% ; margin-top: 10%">
             </div>
-
             <!--<div class="item-details">
-
                 <button class="btn btn-success">Close</button>
             </div>-->
             <div v-if="viewDetailsVar" style="margin-top: -350px ;">
@@ -72,7 +76,14 @@
                             </button>
                         </div>
                         <div class="modal-body">
+
+                            <h5> Image :</h5><img :src = "'http://127.0.0.1:8000/product/images/'+viewDetailsItem.image" class="rounded mx-auto a-block img-thumbnail" style="height: 70px; width: 70px" >
                             <h4>Name :{{viewDetailsItem.name}}</h4>
+                            <div class="row">
+                                <div class="col-md-6"><h4>Quantity :{{viewDetailsItem.quantity}}</h4></div>
+                                <div class="col-md-6"><h4>Price :{{viewDetailsItem.price}}</h4></div>
+                            </div>
+                            <h4>Category :{{viewDetailsItem.category}}</h4>
                             <h4>Description :{{viewDetailsItem.description}}</h4>
                         </div>
                         <div class="modal-footer">
@@ -93,9 +104,7 @@
         }),*/
         name: 'Product',
         mounted(){
-
             this.fetchData();
-            console.log(this.items);
         },
         data(){
             return{
@@ -111,15 +120,14 @@
         methods:{
             fetchData(){
                 let obj = this;
-                axios.get('http://127.0.0.1:8000/api/v1/students')
+                axios.get('http://127.0.0.1:8000/api/v1/products')
                     .then(function (response) {
                         setTimeout(function () {
-                            obj.items = response.data.students;
+                            obj.items = response.data.products;
 //                        console.log(response);
                             obj.loading = false;
                         },3000)
                         // handle success
-
                     })
                     .catch(function (error) {
                         // handle error
@@ -129,13 +137,13 @@
             viewDetails(data){
                 let obj = this;
 //                let id = this.data;
-
-                console.log(data);
-                axios.get("http://127.0.0.1:8000/api/v1/students"+"/"+data)
+                obj.loading =  true;
+                axios.get("http://127.0.0.1:8000/api/v1/product"+"/"+data)
                     .then(function (response) {
                         console.log(response);
-                        obj.viewDetailsItem = response.data.student;
+                        obj.viewDetailsItem = response.data.product;
                         // handle success
+                        obj.loading =  false;
                         obj.viewDetailsVar = true;
                     })
                     .catch(function (error) {
@@ -146,6 +154,42 @@
             viewDetailsClose(){
                 let obj = this;
                 obj.viewDetailsVar = false;
+            },
+            productDelete(data){
+                let obj = this;
+//                let id = this.data;
+                obj.loading =  true;
+                let v = confirm('Are you sure to delete this item?');
+                if (v == true){
+                    axios.get("http://127.0.0.1:8000/api/v1/product/delete"+"/"+data)
+                        .then(function (response) {
+                            console.log(response);
+                            if (response.data.error){
+                                obj.$iziToast.error({
+                                    title: 'Error',
+                                    message: response.data.message,
+                                });
+                                obj.loading =  false;
+                            }else{
+
+                                obj.fetchData();
+                                obj.$iziToast.error({
+                                    title: 'success',
+                                    image: '/assets//image/profile-image.jpeg',
+                                    imageWidth: 50,
+                                    position: 'topCenter',
+                                    message: response.data.message,
+                                });
+
+                                obj.loading =  false;
+                            }
+                        })
+                        .catch(function (error) {
+                            // handle error
+                            console.log(error);
+                        })
+
+                }
             }
         }
 
