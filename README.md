@@ -30,7 +30,7 @@ now go to the api-serve folder
 composer install
 ```
 
-anf setup env file 
+and setup env file 
 
 ### Then run
 ```
