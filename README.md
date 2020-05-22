@@ -22,3 +22,22 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+now go to the api-serve folder
+
+### Laravel project setup
+```
+composer install
+```
+
+and setup env file 
+
+### Then run
+```
+php artisan migrate
+```
+
+### Then run
+```
+php artisan serve
+```
