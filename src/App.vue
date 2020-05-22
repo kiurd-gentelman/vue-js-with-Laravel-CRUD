@@ -18,6 +18,7 @@ import Dashboard from './pages/admin/Dashboard.vue'
 import Home from './components/admin/Home.vue'
 import Product from './components/admin/Products.vue'
 import ProductCreate from './components/admin/ProductCreate.vue'
+// import Modal from './components/admin/Modal.vue'
 import Data from './data/data.js'
 
 import VueRouter from 'vue-router'
@@ -44,6 +45,7 @@ export default {
   name: 'App',
   components: {
 //      NavBar,
+//        Modal
   },
     created(){
       this.$eventHandelar.$on('delayStatus' , payloadtype => {

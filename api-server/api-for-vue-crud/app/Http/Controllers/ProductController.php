@@ -91,7 +91,14 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $obj = new Products();
+        $obj = $obj->find($id);
+
+        return response()->json([
+            "product" => $obj,
+            "error" => false,
+            "message" => "Student Data retrieved"
+        ]);
     }
 
     /**
@@ -103,7 +110,57 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // return response()->json([
+        //     "id" => $id,
+        //     "image"=> $request->image,
+        //     "error" => true,
+        //     "message" => "Student Update Error!"
+        // ]);
+        $obj = new Products();
+        $obj = $obj->find($id);
+        $deleted = 0;
+
+        if($request->image == !null){
+            $imageName = time().'.'.$request->image->extension();
+        $request->image->move(public_path('product/images'), $imageName);
+        $obj->name = $request->name;
+        $obj->category = $request->category;
+        $obj->quantity = $request->quantity;
+        $obj->price = $request->price;
+//        $picture = $request->image->store('public/image');
+        $obj->image = $imageName;
+        $obj->description = $request->description;
+        if($obj->save())
+            return response()->json([
+                "product" => $obj,
+                "error" => false,
+                "message" => "Product Updated Successfully"
+            ]);
+        else
+            return response()->json([
+                "error" => true,
+                "message" => "Student Updated be Stored!"
+            ]);
+        }else{
+                $obj->name = $request->name;
+                $obj->category = $request->category;
+                $obj->quantity = $request->quantity;
+                $obj->price = $request->price;
+        //        $picture = $request->image->store('public/image');
+                $obj->description = $request->description;
+                if($obj->save())
+                    return response()->json([
+                        "product" => $obj,
+                        "error" => false,
+                        "message" => "Product Updated Successfully"
+                    ]);
+                else
+                    return response()->json([
+                        "error" => true,
+                        "message" => "Student Updated be Stored!"
+                    ]);
+        }
+    
     }
 
     /**

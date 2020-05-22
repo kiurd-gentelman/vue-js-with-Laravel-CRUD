@@ -1,5 +1,33 @@
 <template>
+
         <div class="content pure-u-1 pure-u-md-21-24">
+            <Modal :productId="setProductID" v-if="modelShow" @closeModal="modelShow = false" @refresh="refresh"></Modal>
+            <div v-if="viewDetailsVar" style="position:absolute ; margin-top:5%;width:80%">
+                <div class="modal-dialog" role="document" style="width:80%">
+                    <div class="modal-content" style="background-color: rgb(103,102,104);color: whitesmoke">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                            <button type="button" class="close " style="color: whitesmoke" v-on:click="viewDetailsClose()">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <h5> Image :</h5><img :src = "'http://127.0.0.1:8000/product/images/'+viewDetailsItem.image" class="rounded mx-auto a-block img-thumbnail" style="height: 70px; width: 70px" >
+                            <h4>Name :{{viewDetailsItem.name}}</h4>
+                            <div class="row">
+                                <div class="col-md-6"><h4>Quantity :{{viewDetailsItem.quantity}}</h4></div>
+                                <div class="col-md-6"><h4>Price :{{viewDetailsItem.price}}</h4></div>
+                            </div>
+                            <h4>Category :{{viewDetailsItem.category}}</h4>
+                            <h4>Description :{{viewDetailsItem.description}}</h4>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal" v-on:click="viewDetailsClose()">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="header-small" v-if="!loading">
                 <div class="items" >
                     <h1 class="subhead">Post List <router-link :to="{path:'/dashboard/product-create'}"><a class="pure-button button-small button-secondary" href="post-form.html">Add New</a></router-link></h1>
@@ -36,7 +64,7 @@
                                 <td>{{item.description}}</td>
                                 <td>
                                     <a class=" btn btn-success btn-sm" href="javaScript:void(0)" v-on:click="viewDetails(item.id)">View</a>
-                                    <a class=" btn btn-warning btn-sm" href="post-form.html">Edit</a>
+                                    <a class=" btn btn-warning btn-sm" href="post-form.html" @click.prevent="productEdit(item.id)" >Edit</a>
                                     <a class=" btn btn-danger btn-sm" href="#" @click.prevent="productDelete(item.id)">Delete</a>
                                 </td>
                             </tr>
@@ -66,34 +94,9 @@
             <!--<div class="item-details">
                 <button class="btn btn-success">Close</button>
             </div>-->
-            <div v-if="viewDetailsVar" style="margin-top: -350px ;">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content" style="background-color: rgb(103,102,104);color: whitesmoke">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                            <button type="button" class="close " style="color: whitesmoke" v-on:click="viewDetailsClose()">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-
-                            <h5> Image :</h5><img :src = "'http://127.0.0.1:8000/product/images/'+viewDetailsItem.image" class="rounded mx-auto a-block img-thumbnail" style="height: 70px; width: 70px" >
-                            <h4>Name :{{viewDetailsItem.name}}</h4>
-                            <div class="row">
-                                <div class="col-md-6"><h4>Quantity :{{viewDetailsItem.quantity}}</h4></div>
-                                <div class="col-md-6"><h4>Price :{{viewDetailsItem.price}}</h4></div>
-                            </div>
-                            <h4>Category :{{viewDetailsItem.category}}</h4>
-                            <h4>Description :{{viewDetailsItem.description}}</h4>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal" v-on:click="viewDetailsClose()">Close</button>
-                            <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        
         </div>
+
 </template>
 
 <script>
@@ -111,15 +114,23 @@
                 viewDetailsVar : false,
                 loading: true,
                 items:[],
-                viewDetailsItem :[]
+                viewDetailsItem :[],
+                setProductID : '',
+                modelShow :false
             }
         },
         props: {
             msg: String
         },
         methods:{
+            productEdit(id){
+                let obj = this;
+                obj.setProductID = id;
+                obj.modelShow = true;
+            },
             fetchData(){
                 let obj = this;
+                 obj.loading = true;
                 axios.get('http://127.0.0.1:8000/api/v1/products')
                     .then(function (response) {
                         setTimeout(function () {
@@ -136,6 +147,7 @@
             },
             viewDetails(data){
                 let obj = this;
+                obj.viewDetailsVar = false;
 //                let id = this.data;
                 obj.loading =  true;
                 axios.get("http://127.0.0.1:8000/api/v1/product"+"/"+data)
@@ -190,6 +202,12 @@
                         })
 
                 }
+            },
+            refresh(){
+                let obj = this;
+                console.log('ashtese');
+                obj.modelShow = false;
+                obj.fetchData();
             }
         }
 
@@ -198,7 +216,7 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.item-details{
+/* .item-details{
     background-color: #ff4f5a;
     height: 50%;
     width: 75%;
@@ -206,6 +224,6 @@
     margin-top: -362px;
     margin-bottom: 30%;
     margin-left: 2.5%;
-}
+} */
 </style>
 

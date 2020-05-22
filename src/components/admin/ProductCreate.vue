@@ -124,8 +124,8 @@
                 .then(function (response) {
                     console.log(response);
                     if(response.data.error){
-                        obj.$iziToast.error({
-                        title: 'Error',
+                        obj.$iziToast.susscss({
+                        title: 'success',
                         message: response.data.message,
                     });
                 }

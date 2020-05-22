@@ -26,6 +26,8 @@ Route::prefix('v1')->group(function () {
     Route::post("product/store", "productController@store");
     Route::get("product/{id}", "ProductController@show");
     Route::get("product/delete/{id}", "ProductController@destroy");
+    Route::get("product/edit/{id}", "ProductController@edit");
+    Route::post("product/update/{id}", "ProductController@update");
 
 
 

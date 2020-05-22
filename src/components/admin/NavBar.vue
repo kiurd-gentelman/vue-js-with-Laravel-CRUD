@@ -16,7 +16,7 @@
                     <li>
                         <a href="javaScript:void(0)" class="pure-menu-link"><router-link to="/dashboard/product-create">Post Form</router-link></a>
                     </li>
-                    <li class="menu-item-divided">
+                    <!-- <li class="menu-item-divided">
                         <a href="javascript:void(0)" class="pure-menu-link">Option List</a>
                     </li>
                     <li>
@@ -24,7 +24,7 @@
                     </li>
                     <li class="menu-item-divided">
                         <a href="profile.html" class="pure-menu-link">Profile</a>
-                    </li>
+                    </li> -->
                     <li class="menu-item-divided">
                         <a href="javaScript:void(0)" class="pure-menu-link" @click="logoutNow()">Log out</a>
                     </li>
