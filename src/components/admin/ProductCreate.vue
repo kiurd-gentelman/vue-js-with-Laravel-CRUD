@@ -18,6 +18,9 @@
                     <fieldset>
                         <label for="title">Name</label>
                         <input id="title" type="text" placeholder="Title" class="pure-input-1" v-model="insertData.name">
+                        <small id="passwordHelpBlock" class="form-text text-danger">
+                            {{validMsgName}}
+                        </small>
 
                         <!--<label for="slug">Slug</label>
                         <input id="slug" type="text" placeholder="Slug" class="pure-input-1" value="" disabled>-->
@@ -32,6 +35,9 @@
                                     <div class="progress-bar progress-bar-striped" role="progressbar" :style="'width:'+percent+'%'" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                                 <!-- <h4>upload : {{percent}}</h4> -->
+                                <small id="passwordHelpBlock" class="form-text text-danger">
+                                    {{validMsgImage}}
+                                </small>
                             </div>
                             <div class="col-md-6">
                                 <label for="status">Category</label>
@@ -42,20 +48,32 @@
                                     <option value="3">Category - 3</option>
                                     <option value="4">Category - 4</option>
                                 </select>
+                                <small id="passwordHelpBlock" class="form-text text-danger">
+                                    {{validMsgCategory}}
+                                </small>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6">
                                 <label for="total_amount">Quantity</label>
                                 <input id="total_amount" type="number" placeholder="quantity" class="pure-input-1" v-model="insertData.quantity">
+                                <small id="passwordHelpBlock" class="form-text text-danger">
+                                    {{validMsgQuantity}}
+                                 </small>
                             </div>
                             <div class="col-md-6">
                                 <label for="paid_amount">Price</label>
                                 <input  id="paid_amount" type="number" placeholder="quantity" class="pure-input-1" v-model="insertData.price">
+                                <small id="passwordHelpBlock" class="form-text text-danger">
+                                    {{validMsgPrice}}
+                                </small>
                             </div>
                         </div>
                         <label for="content">Description</label>
                         <textarea id="content" class="pure-input-1" rows="4" v-model="insertData.description"></textarea>
+                        <small id="passwordHelpBlock" class="form-text text-danger">
+                            {{validMsgDescription}}
+                        </small>
 
                         <input type="hidden" name="id" value="1">
                         <a href="javaScript:void(0)" class="pure-button button-success" @click="OnSubmit()">Save</a>
@@ -86,6 +104,13 @@
                 previewImage:null,
                 selectedFile :null,
                 percent:0,
+
+                validMsgName : null,
+                validMsgImage : null,
+                validMsgCategory : null,
+                validMsgPrice : null,
+                validMsgQuantity : null,
+                validMsgDescription : null,
             }
         },
         mounted(){
@@ -107,6 +132,36 @@
             },
             OnSubmit(){
                  let obj = this;
+                obj. validMsgName = null;
+                obj.validMsgImage = null;
+                obj.validMsgCategory = null;
+                obj.validMsgPrice = null;
+                obj.validMsgQuantity = null;
+                obj.validMsgDescription = null;
+                 if(!obj.insertData.name ){
+                     obj.validMsgName = 'This field Can not be empty';
+                     return;
+                 }
+                 else if(!obj.selectedFile){
+                     obj.validMsgImage = 'Image field can not be empty';
+                     return;
+                 }
+                 else if(!obj.insertData.category){
+                     obj.validMsgCategory = 'Category field can not be empty';
+                     return;
+                 }
+                 else if(!obj.insertData.price){
+                     obj.validMsgPrice = 'Price field can not be empty';
+                     return;
+                 }
+                 else if(!obj.insertData.quantity){
+                     obj.validMsgQuantity = 'Quantity field can not be empty';
+                     return;
+                 }
+                 else if(!obj.insertData.description){
+                     obj.validMsgDescription = 'Description field can not be empty';
+                     return;
+                 }
                 let formData = new FormData();
                 formData.append('name' ,obj.insertData.name);
                 formData.append('quantity' ,obj.insertData.quantity);

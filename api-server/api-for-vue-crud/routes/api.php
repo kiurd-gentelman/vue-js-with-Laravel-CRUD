@@ -29,17 +29,4 @@ Route::prefix('v1')->group(function () {
     Route::get("product/edit/{id}", "ProductController@edit");
     Route::post("product/update/{id}", "ProductController@update");
 
-
-
-
-	Route::get("students", "StudentController@index");
-	Route::post("students/store", "StudentController@store");
-	Route::post("students/update/{id}", "StudentController@update");
-	Route::post("students/delete/{id}", "StudentController@destroy");
-	Route::get("students/{id}", "StudentController@getData");
-
-   Route::post("upload-image", "StudentController@uploadImage");
-   Route::post("edit-image", "StudentController@editImage");
-   Route::post("test", "StudentController@test");
-
 });
