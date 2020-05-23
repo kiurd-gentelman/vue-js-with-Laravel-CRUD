@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -31,6 +32,36 @@ class UserController extends Controller
                 "error" => true,
                 "message" => $authentication['message']
             ]);
+        }
+    }
+    public function authenticationStore(Request $request){
+        /*$this->validate($request,[
+            'phone' => ['required', 'string', 'min:11', 'max:14'],
+            'email' => ['required', 'string', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:8' , 'max:20'],
+        ]);*/
+        $duplicate = User::select('email')->where('email', $request->email)->get();
+
+        if (sizeof($duplicate) <= 0 ){
+            $user = new User();
+            $user->name = $request->name;
+            $user->email = $request->email;
+//            $user->phone = $request->phone;
+            $user->password = Hash::make($request->password);
+            $user->	remember_token = Str::random(60);
+            if($user->save()){
+                return response()->json([
+                    "error" => false,
+                    "message" => "Successfully Registered"
+                ]);
+            }
+        }
+        else{
+            return response()->json([
+                "error" => true,
+                "message" => 'This email already used !!'
+            ]);
+//            return response()->json(array('message'=>));
         }
     }
 

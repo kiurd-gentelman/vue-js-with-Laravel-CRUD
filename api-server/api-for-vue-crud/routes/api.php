@@ -21,7 +21,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
   /*product*/
-    Route::post("login-register", "UserController@authentication");
+    Route::post("/login", "UserController@authentication");
+    Route::post("/register", "UserController@authenticationStore");
     Route::get("/products", "ProductController@index");
     Route::post("product/store", "productController@store");
     Route::get("product/{id}", "ProductController@show");

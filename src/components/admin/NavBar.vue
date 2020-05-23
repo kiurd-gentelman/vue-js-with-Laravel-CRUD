@@ -44,7 +44,7 @@
         methods:{
             logoutNow(){
                 localStorage.setItem('token','');
-                this.$router.push({path:'/login-register'});
+                this.$router.push({path:'/'});
             }
         }
 

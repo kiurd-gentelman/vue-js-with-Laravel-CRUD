@@ -13,6 +13,8 @@
 <script>
 //import NavBar from './components/admin/NavBar.vue'
 import LoginRegister from './pages/admin/LoginRegister.vue'
+import Login from './components/admin/Login.vue'
+import Register from './components/admin/Register.vue'
 //import TopNavBar from './components/admin/TopNavBar.vue'
 import Dashboard from './pages/admin/Dashboard.vue'
 import Home from './components/admin/Home.vue'
@@ -24,7 +26,15 @@ import Data from './data/data.js'
 import VueRouter from 'vue-router'
 const routes = [
     // { path: '/', redirect:{path:'/login-register'}},
-    { path: '/login-register', component: LoginRegister },
+    { path: '/',
+        component: LoginRegister,
+        redirect:{path:'/login'},
+        children:[
+                { path: 'login', component: Login },
+                { path: 'register', component: Register },
+                ]
+    
+    },
     { path: '/dashboard',
         component: Dashboard ,
         redirect:{path:'/dashboard/home'},
