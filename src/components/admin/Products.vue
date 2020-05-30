@@ -57,7 +57,7 @@
                             <tr v-for="(item , index) in items" :key="index">
                                 <td>{{index+1}}</td>
                                 <td>{{item.name}}</td>
-                                <td><img :src = "'http://127.0.0.1:8000/product/images/'+item.image" class="rounded mx-auto d-block img-thumbnail" style="height: 70px; width: 70px" ></td>
+                                <td><img :src = "'http://127.0.0.1:8000/product/images/'+ item.image" class="rounded mx-auto d-block img-thumbnail" style="height: 70px; width: 70px" ></td>
                                 <td>{{item.category}}</td>
                                 <td>{{item.quantity}}</td>
                                 <td>{{item.price}}</td>

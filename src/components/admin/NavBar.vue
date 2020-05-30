@@ -3,7 +3,7 @@
         <div id="menu">
             <div class="pure-menu">
                 <p class="pure-menu-heading">
-                    Pure Admin
+                    {{PN}}
                     <a href="login.html" class="pure-button button-xxsmall">OUT &raquo;</a>
                 </p>
                 <ul class="pure-menu-list">
@@ -16,10 +16,10 @@
                     <li>
                         <a href="javaScript:void(0)" class="pure-menu-link"><router-link to="/dashboard/product-create">Post Form</router-link></a>
                     </li>
-                    <!-- <li class="menu-item-divided">
-                        <a href="javascript:void(0)" class="pure-menu-link">Option List</a>
+                    <li class="menu-item-divided">
+                        <a href="javascript:void(0)" class="pure-menu-link"><router-link :to="{name: 'shop'}">Shop</router-link></a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="option-form.html" class="pure-menu-link">Option Form</a>
                     </li>
                     <li class="menu-item-divided">
@@ -41,10 +41,20 @@
         props: {
             msg: String
         },
+        data(){
+            return{
+                projectName : '',
+            }
+        },
         methods:{
             logoutNow(){
                 localStorage.setItem('token','');
-                this.$router.push({path:'/'});
+                this.projectName = this.$router.push({path:'/'});
+            }
+        },
+        computed:{
+            PN(){
+                return this.$store.getters.getName;
             }
         }
 

@@ -11,17 +11,18 @@
 </template>
 
 <script>
-//import NavBar from './components/admin/NavBar.vue'
+// admin router
 import LoginRegister from './pages/admin/LoginRegister.vue'
 import Login from './components/admin/Login.vue'
 import Register from './components/admin/Register.vue'
-//import TopNavBar from './components/admin/TopNavBar.vue'
 import Dashboard from './pages/admin/Dashboard.vue'
 import Home from './components/admin/Home.vue'
 import Product from './components/admin/Products.vue'
 import ProductCreate from './components/admin/ProductCreate.vue'
-// import Modal from './components/admin/Modal.vue'
-import Data from './data/data.js'
+import Productview from './components/admin/ProductView.vue'
+// import Data from './data/data.js'
+//Shop router
+import Shop from './components/admin/Shop.vue'
 
 import VueRouter from 'vue-router'
 const routes = [
@@ -39,11 +40,15 @@ const routes = [
         component: Dashboard ,
         redirect:{path:'/dashboard/home'},
         children:[
-            { path: 'home', component: Home },
-            { path: 'products', component: Product },
-            { path: 'product-create', component: ProductCreate },
+              { path: 'home', component: Home },
+              { path: 'products', component: Product },
+              { path: 'product-create', component: ProductCreate },
+              { path: 'shop', component: Shop , name:'shop' ,},
+              { path: 'product-view/:id', component: Productview ,name:'productview'},
             ]
     },
+
+    // Shop site
 ];
 
 
@@ -70,8 +75,10 @@ export default {
       }
     },
     mounted: function () {
-    this.items = Data
-}
+      //
+     
+},
+    
 }
 </script>
 
