@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -67,15 +68,18 @@ class UserController extends Controller
 
     public function login($email,$password)
     {
-           $user = User::where('email',$email )->first();
-           if (!empty($user)) {
-            if (Hash::check($password, $user->password)) {
+
+//           $user = User::where('email',$email )->first();
+        if (Auth::attempt(['email' => $email, 'password' => $password])) {
+//           if (!empty($user)) {
+//            if (Hash::check($password, $user->password)) {
                 //var_dump($user->password);
-                        // unset($user->password);
+                        // unset($user->0.);
                         // $user['login'] = true;
                    // Session::put(['customer_id' => $user->id,'name' => $user->name,'username'=>$user->username,'email'=>$user->email,'phone'=>$user->phone,'login'=>true,'picture'=>$user->picture]);
 //                    return true;
-                return ["token" => $user->remember_token,
+                return [
+                    "token" => auth()->user()->remember_token,
                     "error" => false,
                     "message" => "Successfully Login"
                 ];
@@ -93,13 +97,12 @@ class UserController extends Controller
                 ];
 //                    return redirect(route('loginRegister.index'))->with('error', 'Login failed !!');
                 }
-            }else{
-               return [
-                   "token" => '',
-                   "error" => true,
-                   "message" => 'you are not registered'
-               ];
-//                return redirect(route('loginRegister.index'))->with('error', 'you are not registered');
-            }
-    }	
+
+    }
+    public function total_user(){
+	    $total_user = User::get();
+        return [
+            "all_users" => $total_user,
+        ];
+    }
 }

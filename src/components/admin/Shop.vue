@@ -131,6 +131,7 @@ export default {
     addToCart(data){
       let obj = this;
       obj.$store.dispatch('addToCartByAction' , data);
+      // console.log(data)
             // let obj = this;
             // obj.$store.commit('addToCart', 
             //   { product : obj.viewDetailsItem , quantity : obj.qty}

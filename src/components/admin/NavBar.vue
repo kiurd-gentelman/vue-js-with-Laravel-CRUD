@@ -11,13 +11,13 @@
                         <a href="javaScript:void(0)" class="pure-menu-link"><router-link to="/dashboard/home">Dashboard</router-link></a>
                     </li>
                     <li>
-                        <a href="javaScript:void(0)" class="pure-menu-link"><router-link to="/dashboard/products">Book List</router-link></a>
+                        <a href="javaScript:void(0)" class="pure-menu-link"><router-link to="/dashboard/products">Product List</router-link></a>
                     </li>
                     <li>
-                        <a href="javaScript:void(0)" class="pure-menu-link"><router-link to="/dashboard/product-create">Post Form</router-link></a>
+                        <a href="javaScript:void(0)" class="pure-menu-link"><router-link to="/dashboard/product-create">Create Product</router-link></a>
                     </li>
                     <li class="menu-item-divided">
-                        <a href="javascript:void(0)" class="pure-menu-link"><router-link :to="{name: 'shop'}">Shop</router-link></a>
+                        <a href="javascript:void(0)" class="pure-menu-link"><router-link :to="{name: 'shop'}">View Shop</router-link></a>
                     </li>
                     <!-- <li>
                         <a href="option-form.html" class="pure-menu-link">Option Form</a>

@@ -12,6 +12,8 @@ const store = new Vuex.Store({
   },
   mutations: {
     addToCart(state, payload) {
+      // console.log('h=>'+state.cart)
+      // console.log('payload=>'+payload)
       state.cart.push(payload);
     },
 
@@ -20,12 +22,39 @@ const store = new Vuex.Store({
     },
 
     addToCartFromApi(state, payload) {
-      console.log(payload);
+      // console.log(payload);
       axios.get("http://127.0.0.1:8000/api/v1/product" + "/" + payload)
         .then(function(response) {
-          console.log(response);
+          // console.log(response);
           let product = response.data.product;
-          state.cart.push({ product :product , quantity : 1});
+
+          if (state.cart.length != 0){
+            console.log('sagsdfhdh');
+            for (let j = 0; j < state.cart.length; j++) {
+              // console.log(state.cart[j].product.id);
+              // console.log(payload);
+
+              if(state.cart[j].product.id == payload){
+
+                console.log(state.cart[j].quantity ++)
+
+                console.log('xfhbfcxhngj')
+              }else{
+                state.cart.push({ product :product , quantity : 1});
+              }
+
+              // let item = state.cart[i];
+              // total += item.quantity * item.product.price;
+            }
+          }else{
+            state.cart.push({ product :product , quantity : 1});
+          }
+
+
+
+
+          // console.log(state.cart)
+
         }).catch(function(error) {
           // handle error
           console.log(error);

@@ -30,7 +30,7 @@
             </div>
             <div class="header-small" v-if="!loading">
                 <div class="items" >
-                    <h1 class="subhead">Post List <router-link :to="{path:'/dashboard/product-create'}"><a class="pure-button button-small button-secondary" href="post-form.html">Add New</a></router-link></h1>
+                    <div class="subhead ">Book List <router-link :to="{path:'/dashboard/product-create'}"><a class="pure-button button-small button-secondary " href="post-form.html">Add New</a></router-link></div>
                    <!-- <aside class="pure-message message-success">
                         <p><strong>SUCCESS</strong>: Success message.</p>
                     </aside>
@@ -130,8 +130,7 @@
             },
             fetchData(){
                 let obj = this;
-                 obj.loading = true;
-                axios.get('http://127.0.0.1:8000/api/v1/products')
+                 obj.loading = true;axios.get('http://127.0.0.1:8000/api/v1/products')
                     .then(function (response) {
                         setTimeout(function () {
                             obj.items = response.data.products;
@@ -144,6 +143,7 @@
                         // handle error
                         console.log(error);
                     })
+
             },
             viewDetails(data){
                 let obj = this;

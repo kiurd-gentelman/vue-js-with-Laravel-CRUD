@@ -72,6 +72,7 @@
                                 title: 'Error',
                                 message: 'username or password may be wrong',
                             });
+                            obj.$router.push({path:'/login'})
                         }else{
                             console.log(response);
                             localStorage.setItem('token',response.data.token);

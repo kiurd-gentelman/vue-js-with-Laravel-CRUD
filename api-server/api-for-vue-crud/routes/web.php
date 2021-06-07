@@ -17,3 +17,7 @@ Route::get('/', function () {
     $student = \App\Student::first();
     return view('welcome', compact('student'));
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
